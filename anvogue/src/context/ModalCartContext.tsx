@@ -42,6 +42,7 @@ export const ModalCartProvider: React.FC<ModalCartContextProps> = ({ children })
     return (
         <ModalCartContext.Provider value={contextValue}>
             {children}
+
         </ModalCartContext.Provider>
     );
 };

@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import Link from 'next/link'
-import TopNavOne from '@/components/Header/TopNav/TopNavOne'
 import MenuOne from '@/components/Header/Menu/MenuOne'
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb'
 import Footer from '@/components/Footer/Footer'
@@ -11,7 +10,7 @@ const ForgotPassword = () => {
 
     return (
         <>
-            <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
+
             <div id="header" className='relative w-full'>
                 <MenuOne props="bg-transparent" />
                 <Breadcrumb heading='Forget your password' subHeading='Forget your password' />
@@ -24,7 +23,7 @@ const ForgotPassword = () => {
                             <div className="body1 mt-2">We will send you an email to reset your password</div>
                             <form className="md:mt-7 mt-4">
                                 <div className="email ">
-                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="email" placeholder="Username or email address *" required  />
+                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="email" placeholder="Username or email address *" required />
                                 </div>
                                 <div className="block-button md:mt-7 mt-4">
                                     <button className="button-main">Submit</button>

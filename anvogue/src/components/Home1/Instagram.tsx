@@ -44,10 +44,13 @@ const Instagram = () => {
                                 },
                             }}
                         >
+
+
+
                             <SwiperSlide>
-                                <Link href={'https://www.instagram.com/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
+                                <Link href={'https://www.instagram.com/veirdo.in/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
                                     <Image
-                                        src={'/images/instagram/1.png'}
+                                        src={'https://veirdo.in/cdn/shop/files/Artboard_3.jpg?v=1726318080&width=360'}
                                         width={300}
                                         height={300}
                                         alt='1'
@@ -59,9 +62,9 @@ const Instagram = () => {
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <Link href={'https://www.instagram.com/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
+                                <Link href={'https://www.instagram.com/veirdo.in/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
                                     <Image
-                                        src={'/images/instagram/2.png'}
+                                        src={'https://veirdo.in/cdn/shop/files/imgpsh_fullsize_anim_1_b22f59f0-c48c-4c86-80c7-d128ec22fd27.png?v=1727529624&width=360'}
                                         width={300}
                                         height={300}
                                         alt='1'
@@ -73,9 +76,9 @@ const Instagram = () => {
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <Link href={'https://www.instagram.com/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
+                                <Link href={'https://www.instagram.com/veirdo.in/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
                                     <Image
-                                        src={'/images/instagram/3.png'}
+                                        src={'https://veirdo.in/cdn/shop/files/Artboard_49.png?v=1727525673&width=360'}
                                         width={300}
                                         height={300}
                                         alt='1'
@@ -87,9 +90,9 @@ const Instagram = () => {
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <Link href={'https://www.instagram.com/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
+                                <Link href={'https://www.instagram.com/veirdo.in/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
                                     <Image
-                                        src={'/images/instagram/4.png'}
+                                        src={'https://veirdo.in/cdn/shop/files/Artboard_37.jpg?v=1727412535&width=360'}
                                         width={300}
                                         height={300}
                                         alt='1'
@@ -101,9 +104,9 @@ const Instagram = () => {
                                 </Link>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <Link href={'https://www.instagram.com/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
+                                <Link href={'https://www.instagram.com/veirdo.in/'} target='_blank' className="item relative block rounded-[32px] overflow-hidden">
                                     <Image
-                                        src={'/images/instagram/5.png'}
+                                        src={'https://veirdo.in/cdn/shop/files/imgpsh_fullsize_anim_1e90004b-e4c6-4fbe-bbdd-d0f43b333728.png?v=1727529563&width=360'}
                                         width={300}
                                         height={300}
                                         alt='1'

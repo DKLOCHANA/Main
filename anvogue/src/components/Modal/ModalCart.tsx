@@ -1,43 +1,25 @@
-'use client'
-
-import React, { useState, useEffect } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import * as Icon from "@phosphor-icons/react/dist/ssr";
-import { ProductType } from '@/type/ProductType';
-import { useModalCartContext } from '@/context/ModalCartContext'
-import { useCart } from '@/context/CartContext'
-import { countdownTime } from '@/store/countdownTime'
+'use client';
+import React from 'react';
+import { useCart } from '@/context/CartContext';
+import { useModalCartContext } from '@/context/ModalCartContext';
+import Image from 'next/image';
+import * as Icon from '@phosphor-icons/react/dist/ssr';
+import { useRouter } from 'next/navigation';
 import CountdownTimeType from '@/type/CountdownType';
-import FetchProducts from '@/context/FetchProducts';
 
 const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) => {
-    const [timeLeft, setTimeLeft] = useState(serverTimeLeft);
-    const [products, setProducts] = useState<ProductType[]>([]); // State for fetched products
-
-
-
-    const [activeTab, setActiveTab] = useState<string | undefined>('');
     const { isModalOpen, closeModalCart } = useModalCartContext();
-    const { cartState, addToCart, removeFromCart, updateCart } = useCart();
+    const { cartState, removeFromCart } = useCart();
+    const router = useRouter(); // Initialize useRouter
 
-    const handleAddToCart = (productItem: ProductType) => {
-        if (!cartState.cartArray.find(item => item.id === productItem.id)) {
-            addToCart({ ...productItem });
-            updateCart(productItem.id, productItem.quantityPurchase, '', '');
-        } else {
-            updateCart(productItem.id, productItem.quantityPurchase, '', '');
-        }
+    // Calculate total cart price
+    const totalPrice = cartState.cartArray.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    const handleCheckout = () => {
+        closeModalCart(); // Close the modal
+        router.push('/checkout2'); // Navigate to the checkout page
     };
 
-    const handleActiveTab = (tab: string) => {
-        setActiveTab(tab);
-    };
-
-    let moneyForFreeship = 150;
-    let [totalCart, setTotalCart] = useState<number>(0);
-
-    cartState.cartArray.map(item => totalCart += item.price * item.quantity);
 
     return (
         <div className={`modal-cart-block`} onClick={closeModalCart}>
@@ -45,43 +27,48 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
                 className={`modal-cart-main flex ${isModalOpen ? 'open' : ''}`}
                 onClick={(e) => e.stopPropagation()}
             >
-                <div className="left w-1/2 border-r border-line py-6 max-md:hidden">
-                    <div className="heading5 px-6 pb-3">You May Also Like</div>
-                    <div className="list px-6">
-                        {products.slice(0, 4).map((product) => (
-                            <div key={product.id} className='item py-5 flex items-center justify-between gap-3 border-b border-line'>
-                                <div className="infor flex items-center gap-5">
-                                    <div className="bg-img">
-                                        <Image
-                                            src={product.images[0]}
-                                            width={300}
-                                            height={300}
-                                            alt={product.name}
-                                            className='w-[100px] aspect-square flex-shrink-0 rounded-lg'
-                                        />
+                {/* Right - Cart Items */}
+                <div className="right w-1/2 p-6">
+                    <h2 className="heading5">Your Cart</h2>
+                    <div className="cart-items">
+                        {cartState.cartArray.length > 0 ? (
+                            cartState.cartArray.map((item) => (
+                                <div key={item.id} className="cart-item flex items-center justify-between gap-3 border-b py-4">
+                                    <Image
+                                        src={item.images[0]}
+                                        width={80}
+                                        height={80}
+                                        alt={item.name}
+                                        className="rounded-lg"
+                                    />
+                                    <div className="flex-grow">
+                                        <div className="text-button">{item.name}</div>
+                                        <div className="text-sm">Qty: {item.quantity}</div>
+                                        <div className="text-sm">Price: ${item.price}</div>
                                     </div>
-                                    <div>
-                                        <div className="name text-button">{product.name}</div>
-                                        <div className="flex items-center gap-2 mt-2">
-                                            <div className="product-price text-title">${product.price}.00</div>
-                                            <div className="product-origin-price text-title text-secondary2"><del>${product.originPrice}.00</del></div>
-                                        </div>
-                                    </div>
+                                    <Icon.Trash
+                                        className="cursor-pointer"
+                                        onClick={() => removeFromCart(item.id)}
+                                    />
                                 </div>
-                                <div
-                                    className="text-xl bg-white w-10 h-10 rounded-xl border border-black flex items-center justify-center duration-300 cursor-pointer hover:bg-black hover:text-white"
-                                    onClick={e => {
-                                        e.stopPropagation();
-                                        handleAddToCart(product);
-                                    }}
-                                >
-                                    <Icon.Handbag />
-                                </div>
-                            </div>
-                        ))}
+                            ))
+                        ) : (
+                            <p>Your cart is empty.</p>
+                        )}
+                    </div>
+
+                    {/* Checkout Button */}
+                    <div className="footer-modal p-6 border-t bg-white border-line absolute bottom-0 left-0 w-full text-center">
+                        <div>Total: ${totalPrice.toFixed(2)}</div>
+                        <button
+                            className="bg-black text-white px-4 py-2 rounded-lg"
+                            onClick={handleCheckout} // Updated handler
+                        >
+                            Checkout
+                        </button>
+
                     </div>
                 </div>
-                {/* Remaining cart details and checkout UI */}
             </div>
         </div>
     );

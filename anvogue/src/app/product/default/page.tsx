@@ -1,17 +1,17 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link'
-import TopNavOne from '@/components/Header/TopNav/TopNavOne'
+
 import MenuOne from '@/components/Header/Menu/MenuOne'
-import BreadcrumbProduct from '@/components/Breadcrumb/BreadcrumbProduct'
+
 import Default from '@/components/Product/Detail/Default';
 import Footer from '@/components/Footer/Footer'
 import { ProductType } from '@/type/ProductType'
 import FetchProducts from '@/context/FetchProducts';
 
 const ProductDefault = () => {
-    const searchParams = useSearchParams()
+    const searchParams = useSearchParams();
     const [productData] = useState<ProductType[]>([]);
     let productId = searchParams.get('id')
 
@@ -21,15 +21,23 @@ const ProductDefault = () => {
 
     return (
         <>
-            <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
             <div id="header" className='relative w-full'>
                 <MenuOne props="bg-white" />
-                <BreadcrumbProduct data={productData} productPage='default' productId={productId} />
             </div>
-            <Default data={productData} productId={productId} />
+
+            <Suspense fallback={<div>Loading product...</div>}>
+                <Default data={productData} productId={productId} />
+            </Suspense>
+
             <Footer />
         </>
     )
 }
+const ProductDefaultPage = () => (
+    <Suspense fallback={<div>Loading...</div>}>
+        < ProductDefault />
+        <Footer />
+    </Suspense>
+);
 
-export default ProductDefault
+export default ProductDefaultPage;

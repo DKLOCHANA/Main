@@ -10,8 +10,7 @@ import { useCart } from '@/context/CartContext';
 import { useModalCartContext } from '@/context/ModalCartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { useModalWishlistContext } from '@/context/ModalWishlistContext';
-import { useCompare } from '@/context/CompareContext'
-import { useModalCompareContext } from '@/context/ModalCompareContext'
+
 import Rate from '../Other/Rate';
 import ModalSizeguide from './ModalSizeguide';
 
@@ -26,8 +25,7 @@ const ModalQuickview = () => {
     const { openModalCart } = useModalCartContext()
     const { addToWishlist, removeFromWishlist, wishlistState } = useWishlist()
     const { openModalWishlist } = useModalWishlistContext()
-    const { addToCompare, removeFromCompare, compareState } = useCompare();
-    const { openModalCompare } = useModalCompareContext()
+
     const percentSale = selectedProduct && Math.floor(100 - ((selectedProduct.price / selectedProduct.originPrice) * 100))
 
     const handleOpenSizeGuide = () => {
@@ -86,22 +84,7 @@ const ModalQuickview = () => {
         openModalWishlist();
     };
 
-    const handleAddToCompare = () => {
-        // if product existed in wishlit, remove from wishlist and set state to false
-        if (selectedProduct) {
-            if (compareState.compareArray.length < 3) {
-                if (compareState.compareArray.some(item => item.id === selectedProduct.id)) {
-                    removeFromCompare(selectedProduct.id);
-                } else {
-                    // else, add to wishlist and set state to true
-                    addToCompare(selectedProduct);
-                }
-            } else {
-                alert('Compare up to 3 products')
-            }
-        }
-        openModalCompare();
-    };
+
 
     return (
         <>
@@ -241,22 +224,7 @@ const ModalQuickview = () => {
                                     <div className="button-block mt-5">
                                         <div className="button-main w-full text-center">Buy It Now</div>
                                     </div>
-                                    <div className="flex items-center flex-wrap lg:gap-20 gap-8 gap-y-4 mt-5">
-                                        <div className="compare flex items-center gap-3 cursor-pointer" onClick={handleAddToCompare}>
-                                            <div
-                                                className="compare-btn md:w-12 md:h-12 w-10 h-10 flex items-center justify-center border border-line cursor-pointer rounded-xl duration-300 hover:bg-black hover:text-white"
-                                            >
-                                                <Icon.ArrowsCounterClockwise className='heading6' />
-                                            </div>
-                                            <span>Compare</span>
-                                        </div>
-                                        <div className="share flex items-center gap-3 cursor-pointer">
-                                            <div className="share-btn md:w-12 md:h-12 w-10 h-10 flex items-center justify-center border border-line cursor-pointer rounded-xl duration-300 hover:bg-black hover:text-white">
-                                                <Icon.ShareNetwork weight='fill' className='heading6' />
-                                            </div>
-                                            <span>Share Products</span>
-                                        </div>
-                                    </div>
+
                                     <div className="more-infor mt-6">
                                         <div className="flex items-center gap-4 flex-wrap">
                                             <div className="flex items-center gap-1">

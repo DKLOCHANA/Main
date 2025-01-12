@@ -49,6 +49,42 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     const [feedbacks, setFeedbacks] = useState<TestimonialType[]>([]);
     const [error, setError] = useState<string | null>(null);
 
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        title: '',
+        address: 'Los Angeles',
+        description: '',
+        star: 5,
+    });
+    const handleChange = (e: { target: { id: string; value: any } }) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value });
+    };
+
+    const handleSubmit = async (e: { preventDefault: () => void }) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.post('http://localhost:5000/submit', formData);
+            alert(response.data.message);
+
+            // Clear input fields after successful submission
+            setFormData({
+                name: '',
+                email: '',
+                title: '',
+                address: '',
+                description: '',
+                star: 5, // Resetting to default star value
+            });
+        } catch (error) {
+            alert('Error submitting feedback');
+        }
+    };
+
+
+
     useEffect(() => {
         const fetchProductById = async () => {
             try {
@@ -108,6 +144,8 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     if (!productMain) {
         return <p>Product not found.</p>;
     }
+
+
 
     const percentSale = Math.floor(100 - ((productMain!.price / productMain!.originPrice) * 100))
 
@@ -184,6 +222,9 @@ const Default: React.FC<Props> = ({ data, productId }) => {
         }
         router.push('/checkout2');
     };
+
+
+
 
 
 
@@ -696,28 +737,25 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                         </div>
                         <div id="form-review" className='form-review pt-6'>
                             <div className="heading4">Leave A comment</div>
-                            <form className="grid sm:grid-cols-2 gap-4 gap-y-5 mt-6">
-                                <div className="name ">
-                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="text" placeholder="Your Name *" required />
+                            <form className="grid sm:grid-cols-2 gap-4 gap-y-5 mt-6" onSubmit={handleSubmit}>
+                                <div className="name">
+                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="name" type="text" placeholder="Your Name *" required value={formData.name} onChange={handleChange} />
                                 </div>
-                                <div className="mail ">
-                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="email" type="email" placeholder="Your Email *" required />
+                                <div className="mail">
+                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="email" type="email" placeholder="Your Email *" required value={formData.email} onChange={handleChange} />
                                 </div>
-                                <div className="name ">
-                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="title" type="Title" placeholder="Message Title *" required />
+                                <div className="name">
+                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="title" type="text" placeholder="Message Title *" required value={formData.title} onChange={handleChange} />
                                 </div>
                                 <div className="col-span-full message">
-                                    <textarea className="border border-line px-4 py-3 w-full rounded-lg" id="message" name="message" placeholder="Your message *" required></textarea>
-                                </div>
-                                <div className="col-span-full flex items-start -mt-2 gap-2">
-                                    <input type="checkbox" id="saveAccount" name="saveAccount" className='mt-1.5' />
-                                    <label className="" htmlFor="saveAccount">Save my name, email, and website in this browser for the next time I comment.</label>
-                                </div>
-                                <div className="col-span-full sm:pt-3">
-                                    <button className='button-main bg-white text-black border border-black'>Submit Reviews</button>
+                                    <textarea className="border border-line px-4 py-3 w-full rounded-lg" id="description" name="description" placeholder="Your message *" required onChange={handleChange} value={formData.description}></textarea>
                                 </div>
 
+                                <div className="col-span-full sm:pt-3">
+                                    <button type="submit" className='button-main bg-white text-black border border-black'>Submit Reviews</button>
+                                </div>
                             </form>
+
                         </div>
                     </div>
                 </div>

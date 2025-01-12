@@ -18,6 +18,7 @@ mongoose.connect(
 ).then(() => console.log('MongoDB Atlas connected'))
   .catch(err => console.error('Error connecting to MongoDB:', err));
 
+
 // Product Schema
 const productSchema = new mongoose.Schema({
   id: String,
@@ -108,6 +109,23 @@ app.get('/api/reviews', async (req, res) => {
     res.status(500).json({ message: 'Error fetching feedbacks', error });
   }
 });
+
+// API Route to handle review submission (POST)
+app.post('/submit', async (req, res) => {
+  try {
+      const { name, email, title, address, description, star } = req.body;
+      // Assuming you're using a MongoDB model called Feedback
+      const feedback = new Feedback({
+          name, email, title, address, description, star
+      });
+
+      await feedback.save(); // Save to the database
+      res.status(201).json({ message: 'Feedback successfully added' });
+  } catch (error) {
+      res.status(500).json({ message: 'Failed to add feedback', error });
+  }
+});
+
 
 
 

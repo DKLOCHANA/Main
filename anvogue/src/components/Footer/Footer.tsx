@@ -18,7 +18,7 @@ const Footer = () => {
                                     <div className="flex flex-col ">
                                         <span className="text-button">Mail:</span>
                                         <span className="text-button mt-3">Phone:</span>
-                                        <span className="text-button mt-3">Address:</span>
+                                        <span className="text-button mt-3">Addresss:</span>
                                     </div>
                                     <div className="flex flex-col ">
                                         <span className=''>hi.avitex@gmail.com</span>

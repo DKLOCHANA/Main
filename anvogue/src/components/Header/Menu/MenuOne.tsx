@@ -97,6 +97,14 @@ const MenuOne: React.FC<Props> = ({ props }) => {
                                                                         Shop Default Grid
                                                                     </Link>
                                                                 </li>
+                                                                <li>
+                                                                    <Link
+                                                                        href={'/pages/Chat'}
+                                                                        className={`link text-secondary duration-300 cursor-pointer ${pathname === '/shop/default-grid'}`}
+                                                                    >
+                                                                        Chat
+                                                                    </Link>
+                                                                </li>
 
 
 

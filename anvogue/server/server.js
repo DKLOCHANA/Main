@@ -1,8 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const { createServer } = require('http'); // For WebSocket integration
+const { Server } = require('socket.io'); // Socket.io for WebSocket communication
 
 const app = express();
+const httpServer = createServer(app); // Create an HTTP server for WebSocket support
+const io = new Server(httpServer, {
+  cors: {
+    origin: "http://localhost:3000", // Replace with your Next.js app's URL
+    methods: ["GET", "POST"],
+  },
+});
 
 // Middleware
 app.use(express.json());
@@ -17,7 +26,6 @@ mongoose.connect(
   }
 ).then(() => console.log('MongoDB Atlas connected'))
   .catch(err => console.error('Error connecting to MongoDB:', err));
-
 
 // Product Schema
 const productSchema = new mongoose.Schema({
@@ -52,13 +60,13 @@ const productSchema = new mongoose.Schema({
   ],
 });
 
-// Feedback Schema (Updated to reflect the fields)
+// Feedback Schema
 const feedbackSchema = new mongoose.Schema({
   name: String,
-  email: String,      // Adding email field as well
+  email: String,
   title: String,
   address: String,
-  description : String,
+  description: String,
   star: Number,
   date: { type: Date, default: Date.now },
 });
@@ -96,13 +104,13 @@ app.get('/api/reviews', async (req, res) => {
   try {
     const feedbacks = await Feedback.find(); // Fetch all feedbacks
     const transformedFeedbacks = feedbacks.map(feedback => ({
-      id: feedback._id,               // Map _id to id
-      customerName: feedback.name,    // Name of the customer
-      address: feedback.address,      // Customer's address
-      date: feedback.date,            // Date of review
-      title: feedback.title,          // Title of the feedback
-      comment: feedback.description,  // Description of the feedback
-      rating: feedback.star,          // Rating given
+      id: feedback._id,
+      customerName: feedback.name,
+      address: feedback.address,
+      date: feedback.date,
+      title: feedback.title,
+      comment: feedback.description,
+      rating: feedback.star,
     }));
     res.json(transformedFeedbacks);
   } catch (error) {
@@ -113,22 +121,44 @@ app.get('/api/reviews', async (req, res) => {
 // API Route to handle review submission (POST)
 app.post('/submit', async (req, res) => {
   try {
-      const { name, email, title, address, description, star } = req.body;
-      // Assuming you're using a MongoDB model called Feedback
-      const feedback = new Feedback({
-          name, email, title, address, description, star
-      });
+    const { name, email, title, address, description, star } = req.body;
+    const feedback = new Feedback({
+      name, email, title, address, description, star,
+    });
 
-      await feedback.save(); // Save to the database
-      res.status(201).json({ message: 'Feedback successfully added' });
+    await feedback.save(); // Save to the database
+    res.status(201).json({ message: 'Feedback successfully added' });
   } catch (error) {
-      res.status(500).json({ message: 'Failed to add feedback', error });
+    res.status(500).json({ message: 'Failed to add feedback', error });
   }
 });
 
+// WebSocket Chat Integration
+const connectedUsers = {};
 
+io.on('connection', (socket) => {
+  console.log(`User connected: ${socket.id}`);
 
+  // Handle user joining the chat
+  socket.on('join', (username) => {
+    connectedUsers[socket.id] = username;
+    console.log(`${username} joined the chat`);
+    io.emit('userList', Object.values(connectedUsers)); // Broadcast user list
+  });
+
+  // Handle chat message
+  socket.on('sendMessage', (message) => {
+    io.emit('receiveMessage', message); // Broadcast the message to all clients
+  });
+
+  // Handle user disconnection
+  socket.on('disconnect', () => {
+    console.log(`User disconnected: ${socket.id}`);
+    delete connectedUsers[socket.id];
+    io.emit('userList', Object.values(connectedUsers)); // Update user list
+  });
+});
 
 // Start Server
 const PORT = 5000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+httpServer.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

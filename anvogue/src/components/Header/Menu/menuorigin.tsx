@@ -81,42 +81,122 @@ const MenuOne: React.FC<Props> = ({ props }) => {
                                         >
                                             Shop
                                         </Link>
+                                        <div className="mega-menu absolute top-[74px] left-0 bg-white w-full">
+                                            <div className="container">
+                                                <div className="flex justify-between py-8">
+                                                    <div className="nav-link basis-2/3 grid grid-cols-4 gap-y-8">
+                                                        <div className="nav-item">
+                                                            <div className="text-button-uppercase pb-2">Shop Layout</div>
+                                                            <ul>
 
+                                                                <li>
+                                                                    <Link
+                                                                        href={'/shop/default-grid'}
+                                                                        className={`link text-secondary duration-300 cursor-pointer ${pathname === '/shop/default-grid'}`}
+                                                                    >
+                                                                        Shop Default Grid
+                                                                    </Link>
+                                                                </li>
+                                                                <li>
+                                                                    <Link
+                                                                        href={'/pages/Chat'}
+                                                                        className={`link text-secondary duration-300 cursor-pointer ${pathname === '/shop/default-grid'}`}
+                                                                    >
+                                                                        Chat
+                                                                    </Link>
+                                                                </li>
+
+
+
+
+                                                                <li>
+                                                                    <Link
+                                                                        href={'/checkout2'}
+                                                                        className={`link text-secondary duration-300 ${pathname === '/checkout2'}`}
+                                                                    >
+                                                                        Checkout Style 2
+                                                                    </Link>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div className="nav-item">
+                                                            <div className="text-button-uppercase pb-2">Products Pages</div>
+                                                            <ul>
+                                                                <li>
+                                                                    <Link
+                                                                        href={'/wishlist'}
+                                                                        className={`link text-secondary duration-300 ${pathname === '/wishlist'}`}
+                                                                    >
+                                                                        Wish List
+                                                                    </Link>
+                                                                </li>
+                                                                <li>
+                                                                    <Link
+                                                                        href={'/search-result'}
+                                                                        className={`link text-secondary duration-300 ${pathname === '/search-result'}`}
+                                                                    >
+                                                                        Search Result
+                                                                    </Link>
+                                                                </li>
+                                                                <li>
+                                                                    <Link
+                                                                        href={'/cart'}
+                                                                        className={`link text-secondary duration-300 ${pathname === '/cart'}`}
+                                                                    >
+                                                                        Shopping Cart
+                                                                    </Link>
+                                                                </li>
+                                                                <li>
+                                                                    <Link
+                                                                        href={'/login'}
+                                                                        className={`link text-secondary duration-300 ${pathname === '/login'}`}
+                                                                    >
+                                                                        Login/Register
+                                                                    </Link>
+                                                                </li>
+                                                                <li>
+                                                                    <Link
+                                                                        href={'/forgot-password'}
+                                                                        className={`link text-secondary duration-300 ${pathname === '/forgot-password'}`}
+                                                                    >
+                                                                        Forgot Password
+                                                                    </Link>
+                                                                </li>
+
+                                                                <li>
+                                                                    <Link
+                                                                        href={'/my-account'}
+                                                                        className={`link text-secondary duration-300 ${pathname === '/my-account'}`}
+                                                                    >
+                                                                        My Account
+                                                                    </Link>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
                                     </li>
-                                    <li className='h-full'>
-                                        <Link
-                                            href={'/pages/Chat'}
-                                            className={`text-button-uppercase duration-300 h-full flex items-center justify-center ${pathname.includes('/shop/')}`}
-                                        >
-                                            Customer Chat
-                                        </Link>
-
-                                    </li>
-                                    <li className='h-full'>
-                                        <Link
-                                            href={'/pages/about'}
-                                            className={`text-button-uppercase duration-300 h-full flex items-center justify-center ${pathname.includes('/shop/')}`}
-                                        >
-                                            About Us
-                                        </Link>
-
-                                    </li>
-                                    <li>
-                                        <Link href="/pages/contact" className={`text-button-uppercase duration-300 h-full flex items-center justify-center ${pathname === '/pages/contact'}`}>
-                                            Contact Us
-                                        </Link>
-                                    </li>
-
-
 
 
                                     <li className='h-full relative'>
                                         <Link href="#!" className={`text-button-uppercase duration-300 h-full flex items-center justify-center ${pathname.includes('/pages')}`}>
-                                            Other Pages
+                                            Pages
                                         </Link>
                                         <div className="sub-menu py-3 px-5 -left-10 absolute bg-white rounded-b-xl">
                                             <ul className='w-full'>
-
+                                                <li>
+                                                    <Link href="/pages/about" className={`link text-secondary duration-300 ${pathname === '/pages/about'}`}>
+                                                        About Us
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link href="/pages/contact" className={`link text-secondary duration-300 ${pathname === '/pages/contact'}`}>
+                                                        Contact Us
+                                                    </Link>
+                                                </li>
 
 
                                                 <li>

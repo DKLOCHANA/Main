@@ -366,32 +366,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 <div className='desc text-secondary mt-3'>{productMain.description}</div>
                             </div>
                             <div className="list-action mt-6">
-                                <div className="choose-color">
-                                    <div className="text-title">Colors: <span className='text-title color'>{activeColor}</span></div>
-                                    <div className="list-color flex items-center gap-2 flex-wrap mt-3">
-                                        {productMain.variation.map((item, index) => (
-                                            <div
-                                                className={`color-item w-12 h-12 rounded-xl duration-300 relative ${activeColor === item.color ? 'active' : ''}`}
-                                                key={index}
-                                                datatype={item.image}
-                                                onClick={() => {
-                                                    handleActiveColor(item.color)
-                                                }}
-                                            >
-                                                <Image
-                                                    src={item.colorImage}
-                                                    width={100}
-                                                    height={100}
-                                                    alt='color'
-                                                    className='rounded-xl'
-                                                />
-                                                <div className="tag-action bg-black text-white caption2 capitalize px-1.5 py-0.5 rounded-sm">
-                                                    {item.color}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
+
                                 <div className="choose-size mt-5">
                                     <div className="heading flex items-center justify-between">
                                         <div className="text-title">Size: <span className='text-title size'>{activeSize}</span></div>
@@ -610,7 +585,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 </div>
                             </div>
                             <div className="list-img lg:w-3/4 md:w-[70%] lg:pl-[15px] md:pl-[15px]">
-                                <div className="heading5">All Image (128)</div>
+                                <div className="heading5">All Images</div>
                                 <div className="list md:mt-6 mt-3">
                                     <Swiper
                                         spaceBetween={16}
@@ -645,7 +620,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     >
                                         <SwiperSlide>
                                             <Image
-                                                src={'/images/product/1000x1000.png'}
+                                                src={'/images/product/1.webp'}
                                                 width={400}
                                                 height={400}
                                                 alt=''
@@ -654,7 +629,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                         </SwiperSlide>
                                         <SwiperSlide>
                                             <Image
-                                                src={'/images/product/1000x1000.png'}
+                                                src={'/images/product/2.webp'}
                                                 width={400}
                                                 height={400}
                                                 alt=''
@@ -663,7 +638,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                         </SwiperSlide>
                                         <SwiperSlide>
                                             <Image
-                                                src={'/images/product/1000x1000.png'}
+                                                src={'/images/product/3.webp'}
                                                 width={400}
                                                 height={400}
                                                 alt=''
@@ -672,7 +647,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                         </SwiperSlide>
                                         <SwiperSlide>
                                             <Image
-                                                src={'/images/product/1000x1000.png'}
+                                                src={'/images/product/4.webp'}
                                                 width={400}
                                                 height={400}
                                                 alt=''
@@ -681,7 +656,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                         </SwiperSlide>
                                         <SwiperSlide>
                                             <Image
-                                                src={'/images/product/1000x1000.png'}
+                                                src={'https://veirdo.in/cdn/shop/files/imgpsh_fullsize_anim_1e90004b-e4c6-4fbe-bbdd-d0f43b333728.png?v=1727529563&width=360'}
                                                 width={400}
                                                 height={400}
                                                 alt=''
@@ -690,7 +665,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                         </SwiperSlide>
                                         <SwiperSlide>
                                             <Image
-                                                src={'/images/product/1000x1000.png'}
+                                                src={'https://veirdo.in/cdn/shop/files/Artboard_37.jpg?v=1727412535&width=360'}
                                                 width={400}
                                                 height={400}
                                                 alt=''
@@ -699,7 +674,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                         </SwiperSlide>
                                         <SwiperSlide>
                                             <Image
-                                                src={'/images/product/1000x1000.png'}
+                                                src={'https://veirdo.in/cdn/shop/files/Artboard_49.png?v=1727525673&width=360'}
                                                 width={400}
                                                 height={400}
                                                 alt=''

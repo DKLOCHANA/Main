@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import MenuOne from '@/components/Header/Menu/MenuOne';
 import WhatNewOne from '@/components/Home1/WhatNewOne';
-import Collection from '@/components/Home1/Collection';
+
 import TabFeatures from '@/components/Home1/TabFeatures';
 import Benefit from '@/components/Home1/Benefit';
 import Testimonial from '@/components/Home1/Testimonial';
@@ -54,7 +54,7 @@ export default function Home() {
       {products.length > 0 ? (
         <>
           <WhatNewOne data={products} start={0} limit={4} />
-          <Collection />
+
           <TabFeatures data={products} start={0} limit={6} />
         </>
       ) : (

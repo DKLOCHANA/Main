@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import io, { Socket } from 'socket.io-client';
+// Adjust the path depending on the location of your file
+
 
 let socket: Socket;
 
@@ -37,24 +39,24 @@ const Chat: React.FC = () => {
     };
 
     return (
-        <div style={styles.chatContainer}>
-            <div style={styles.chatBox}>
+        <div className="chat-container">
+            <div className="chat-box">
                 {!isJoined ? (
-                    <div style={styles.joinContainer}>
+                    <div className="join-container">
                         <input
                             type="text"
                             placeholder="Enter your name"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            style={styles.input}
+                            className="input"
                         />
-                        <button onClick={joinChat} style={styles.button}>
+                        <button onClick={joinChat} className="button">
                             Join Chat
                         </button>
                     </div>
                 ) : (
                     <>
-                        <div style={styles.messages}>
+                        <div className="messages">
                             {messages.map((msg, index) => {
                                 const isSent = msg.startsWith(username); // Check if the message is sent by the user
                                 return (
@@ -62,7 +64,6 @@ const Chat: React.FC = () => {
                                         key={index}
                                         className={isSent ? 'sentMessage' : 'receivedMessage'}
                                     >
-
                                         <div className="messageBubble">
                                             {msg}
                                         </div>
@@ -71,15 +72,15 @@ const Chat: React.FC = () => {
                             })}
                         </div>
 
-                        <div style={styles.messageInput}>
+                        <div className="message-input">
                             <input
                                 type="text"
                                 placeholder="Type a message"
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
-                                style={styles.input}
+                                className="input"
                             />
-                            <button onClick={sendMessage} style={styles.button}>
+                            <button onClick={sendMessage} className="button">
                                 Send
                             </button>
                         </div>
@@ -90,99 +91,4 @@ const Chat: React.FC = () => {
     );
 };
 
-const styles = {
-    chatContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '20px',
-        height: '100vh',
-    },
-    chatBox: {
-        width: '50%',
-        display: 'flex',
-        flexDirection: 'column' as const,
-        border: '1px solid #ddd',
-        borderRadius: '16px',
-        backgroundColor: '#fff',
-        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-    },
-    joinContainer: {
-        marginTop: 'auto',
-        marginBottom: 'auto',
-        display: 'flex',
-        flexDirection: 'column' as const,
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '10px',
-    },
-    messages: {
-        flex: '1',
-        overflowY: 'auto' as const,
-        padding: '10px',
-        gap: '10px',
-    },
-    messageInput: {
-        display: 'flex',
-        gap: '10px',
-        padding: '10px',
-        borderTop: '1px solid #ddd',
-    },
-    input: {
-        flex: '1',
-        padding: '10px',
-        borderRadius: '10px',
-        border: '1px solid #ddd',
-        fontSize: '14px',
-    },
-    button: {
-        padding: '10px 20px',
-        border: 'none',
-        borderRadius: '10px',
-        backgroundColor: '#007bff',
-        color: '#fff',
-        cursor: 'pointer',
-        fontSize: '14px',
-    },
-};
-
 export default Chat;
-
-// CSS styles for Sent and Received Messages (include this in your main CSS file or as a separate style tag)
-const messageStyles = `
-    .sentMessage {
-        display: flex;
-        justify-content: flex-end; /* Align to the right */
-        margin-bottom: 10px;
-    }
-    .sentMessage .messageBubble {
-        max-width: 70%;
-        padding: 10px;
-        font-size: 14px;
-        word-wrap: break-word;
-        display: inline-block;
-        margin: 5px 0;
-        background-color: #DCF8C6; /* WhatsApp-like green background */
-        border-radius: 16px 16px 0 16px;
-    }
-
-    .receivedMessage {
-        display: flex;
-        justify-content: flex-start; /* Align to the left */
-        margin-bottom: 10px;
-    }
-    .receivedMessage .messageBubble {
-        max-width: 70%;
-        padding: 10px;
-        font-size: 14px;
-        word-wrap: break-word;
-        display: inline-block;
-        margin: 5px 0;
-        background-color: #E5E5EA; /* WhatsApp-like light gray background */
-        border-radius: 16px 16px 16px 0;
-    }
-`;
-
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-styleSheet.innerText = messageStyles;
-document.head.appendChild(styleSheet);

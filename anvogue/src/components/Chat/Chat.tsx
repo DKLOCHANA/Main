@@ -7,18 +7,14 @@ const Chat: React.FC = () => {
     const [username, setUsername] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState<string[]>([]);
-    const [isJoined, setIsJoined] = useState(false);  // New state to track if the user has joined
+    const [isJoined, setIsJoined] = useState(false);
 
     useEffect(() => {
-        // Connect to the WebSocket server
         socket = io('http://localhost:5000');
-
-        // Listen for incoming messages
         socket.on('receiveMessage', (newMessage: string) => {
             setMessages((prevMessages) => [...prevMessages, newMessage]);
         });
 
-        // Cleanup on component unmount
         return () => {
             socket.disconnect();
         };
@@ -26,8 +22,8 @@ const Chat: React.FC = () => {
 
     const joinChat = () => {
         if (username.trim()) {
-            socket.emit('join', username); // Emit the username to the server
-            setIsJoined(true);  // Mark the user as joined
+            socket.emit('join', username);
+            setIsJoined(true);
         }
     };
 
@@ -59,11 +55,20 @@ const Chat: React.FC = () => {
                 ) : (
                     <>
                         <div style={styles.messages}>
-                            {messages.map((msg, index) => (
-                                <p key={index} style={styles.message}>
-                                    {msg}
-                                </p>
-                            ))}
+                            {messages.map((msg, index) => {
+                                const isSent = msg.startsWith(username); // Check if the message is sent by the user
+                                return (
+                                    <div
+                                        key={index}
+                                        className={isSent ? 'sentMessage' : 'receivedMessage'}
+                                    >
+
+                                        <div className="messageBubble">
+                                            {msg}
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
 
                         <div style={styles.messageInput}>
@@ -88,17 +93,18 @@ const Chat: React.FC = () => {
 const styles = {
     chatContainer: {
         display: 'flex',
+        justifyContent: 'center',
         padding: '20px',
-        gap: '20px',
-        height: '500px',
+        height: '100vh',
     },
     chatBox: {
-        flex: '2',
+        width: '50%',
         display: 'flex',
         flexDirection: 'column' as const,
         border: '1px solid #ddd',
-        borderRadius: '8px',
-        padding: '10px',
+        borderRadius: '16px',
+        backgroundColor: '#fff',
+        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
     },
     joinContainer: {
         marginTop: 'auto',
@@ -112,31 +118,71 @@ const styles = {
     messages: {
         flex: '1',
         overflowY: 'auto' as const,
-        marginBottom: '10px',
+        padding: '10px',
+        gap: '10px',
     },
     messageInput: {
         display: 'flex',
         gap: '10px',
+        padding: '10px',
+        borderTop: '1px solid #ddd',
     },
     input: {
         flex: '1',
         padding: '10px',
-        borderRadius: '5px',
+        borderRadius: '10px',
         border: '1px solid #ddd',
+        fontSize: '14px',
     },
     button: {
         padding: '10px 20px',
         border: 'none',
-        borderRadius: '5px',
+        borderRadius: '10px',
         backgroundColor: '#007bff',
         color: '#fff',
         cursor: 'pointer',
-    },
-    message: {
-        padding: '5px',
-        margin: '5px 0',
-        borderBottom: '1px solid #ddd',
+        fontSize: '14px',
     },
 };
 
 export default Chat;
+
+// CSS styles for Sent and Received Messages (include this in your main CSS file or as a separate style tag)
+const messageStyles = `
+    .sentMessage {
+        display: flex;
+        justify-content: flex-end; /* Align to the right */
+        margin-bottom: 10px;
+    }
+    .sentMessage .messageBubble {
+        max-width: 70%;
+        padding: 10px;
+        font-size: 14px;
+        word-wrap: break-word;
+        display: inline-block;
+        margin: 5px 0;
+        background-color: #DCF8C6; /* WhatsApp-like green background */
+        border-radius: 16px 16px 0 16px;
+    }
+
+    .receivedMessage {
+        display: flex;
+        justify-content: flex-start; /* Align to the left */
+        margin-bottom: 10px;
+    }
+    .receivedMessage .messageBubble {
+        max-width: 70%;
+        padding: 10px;
+        font-size: 14px;
+        word-wrap: break-word;
+        display: inline-block;
+        margin: 5px 0;
+        background-color: #E5E5EA; /* WhatsApp-like light gray background */
+        border-radius: 16px 16px 16px 0;
+    }
+`;
+
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = messageStyles;
+document.head.appendChild(styleSheet);

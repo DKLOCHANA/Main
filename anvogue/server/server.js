@@ -133,7 +133,7 @@ app.post('/submit', async (req, res) => {
   }
 });
 
-// WebSocket Chat Integration
+//websockets
 const connectedUsers = {};
 
 io.on('connection', (socket) => {
@@ -148,7 +148,8 @@ io.on('connection', (socket) => {
 
   // Handle chat message
   socket.on('sendMessage', (message) => {
-    io.emit('receiveMessage', message); // Broadcast the message to all clients
+    // Send message to all clients (including sender)
+    io.emit('receiveMessage', message);  // This broadcasts the message to all clients
   });
 
   // Handle user disconnection
@@ -158,6 +159,7 @@ io.on('connection', (socket) => {
     io.emit('userList', Object.values(connectedUsers)); // Update user list
   });
 });
+
 
 // Start Server
 const PORT = 5000;

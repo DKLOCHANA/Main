@@ -7,7 +7,7 @@ const Chat: React.FC = () => {
     const [username, setUsername] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState<string[]>([]);
-    const [connectedUsers, setConnectedUsers] = useState<string[]>([]);
+    const [isJoined, setIsJoined] = useState(false);  // New state to track if the user has joined
 
     useEffect(() => {
         // Connect to the WebSocket server
@@ -18,11 +18,7 @@ const Chat: React.FC = () => {
             setMessages((prevMessages) => [...prevMessages, newMessage]);
         });
 
-        // Listen for the updated user list
-        socket.on('userList', (users: string[]) => {
-            setConnectedUsers(users);
-        });
-
+        // Cleanup on component unmount
         return () => {
             socket.disconnect();
         };
@@ -30,7 +26,8 @@ const Chat: React.FC = () => {
 
     const joinChat = () => {
         if (username.trim()) {
-            socket.emit('join', username);
+            socket.emit('join', username); // Emit the username to the server
+            setIsJoined(true);  // Mark the user as joined
         }
     };
 
@@ -38,24 +35,15 @@ const Chat: React.FC = () => {
         if (message.trim()) {
             const formattedMessage = `${username}: ${message}`;
             socket.emit('sendMessage', formattedMessage);
-            setMessages((prevMessages) => [...prevMessages, formattedMessage]);
+
             setMessage('');
         }
     };
 
     return (
         <div style={styles.chatContainer}>
-            <div style={styles.userList}>
-                <h3>Connected Users</h3>
-                <ul>
-                    {connectedUsers.map((user, index) => (
-                        <li key={index}>{user}</li>
-                    ))}
-                </ul>
-            </div>
-
             <div style={styles.chatBox}>
-                {!username ? (
+                {!isJoined ? (
                     <div style={styles.joinContainer}>
                         <input
                             type="text"
@@ -103,12 +91,6 @@ const styles = {
         padding: '20px',
         gap: '20px',
         height: '500px',
-    },
-    userList: {
-        flex: '1',
-        border: '1px solid #ddd',
-        borderRadius: '8px',
-        padding: '10px',
     },
     chatBox: {
         flex: '2',

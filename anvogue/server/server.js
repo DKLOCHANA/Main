@@ -70,10 +70,42 @@ const feedbackSchema = new mongoose.Schema({
   star: Number,
   date: { type: Date, default: Date.now },
 });
+const OrderSchema = new mongoose.Schema({
+  email: String,
+  firstName: String,
+  lastName: String,
+  address: String,
+  apartment: String,  // Add the apartment field
+  city: String,
+  zipcode: String,
+});
 
 const Product = mongoose.model('Product', productSchema);
 const Feedback = mongoose.model('Review', feedbackSchema);
 
+const Order = mongoose.model('Order', OrderSchema);
+
+
+app.post('/api/orders', async (req, res) => {
+  try {
+    const { email, firstName, lastName, address, apartment, city, zipcode } = req.body;
+    const order = new Order({
+      email,
+      firstName,
+      lastName,
+      address,
+      apartment,  // Add apartment field here
+      city,
+      zipcode
+    });
+    await order.save();
+    res.status(201).json({ message: 'Order saved successfully' });
+  }  catch (error) {
+    console.log('Error details:', error); // Log the error to the console
+    res.status(500).json({ error: 'Failed to save order', details: error.message });
+    console.log(res.status(500).json({ error: 'Failed to save order', details: error.message }))
+  }
+});
 // API Routes
 app.get('/api/products', async (req, res) => {
   try {
@@ -159,6 +191,9 @@ io.on('connection', (socket) => {
     io.emit('userList', Object.values(connectedUsers)); // Update user list
   });
 });
+
+// Endpoint
+
 
 
 // Start Server

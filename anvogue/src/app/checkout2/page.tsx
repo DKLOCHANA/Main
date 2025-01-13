@@ -56,38 +56,16 @@ const Checkout = () => {
                                 <div>
                                     <input type="text" className="border-line mt-5 px-4 py-3 w-full rounded-lg" placeholder="Email or mobile phone number" required />
                                     <div className="flex items-center mt-5">
-                                        <div className="block-input">
-                                            <input type="checkbox" name="remember" id="remember" />
-                                            <Icon.CheckSquare weight='fill' className="icon-checkbox text-2xl" />
-                                        </div>
-                                        <label htmlFor="remember" className="pl-2 cursor-pointer">Email me with news and offers</label>
+
+
                                     </div>
                                 </div>
                                 <div className="information md:mt-10 mt-6">
                                     <div className="heading5">Delivery</div>
-                                    <div className="deli_type mt-5">
-                                        <div className="item flex items-center gap-2 relative px-5 border border-line rounded-t-lg">
-                                            <input type="radio" name="deli_type" id="ship_type" className="cursor-pointer" defaultChecked />
-                                            <label htmlFor="ship_type" className="w-full py-4 cursor-pointer">Ship</label>
-                                            <Icon.Truck className="text-xl absolute top-1/2 right-5 -translate-y-1/2" />
-                                        </div>
-                                        <div className="item flex items-center gap-2 relative px-5 border border-line rounded-b-lg">
-                                            <input type="radio" name="deli_type" id="store_type" className="cursor-pointer" />
-                                            <label htmlFor="store_type" className="w-full py-4 cursor-pointer">Pickup in store</label>
-                                            <Icon.Storefront className="text-xl absolute top-1/2 right-5 -translate-y-1/2" />
-                                        </div>
-                                    </div>
+
                                     <div className="form-checkout mt-5">
                                         <div className="grid sm:grid-cols-2 gap-4 gap-y-5 flex-wrap">
-                                            <div className="col-span-full select-block">
-                                                <select className="border border-line px-4 py-3 w-full rounded-lg" id="region" name="region">
-                                                    <option value="default">Choose Country/Region</option>
-                                                    <option value="United State">United State</option>
-                                                    <option value="France">France</option>
-                                                    <option value="Singapore">Singapore</option>
-                                                </select>
-                                                <Icon.CaretDown className="arrow-down" />
-                                            </div>
+
                                             <div className="">
                                                 <input className="border-line px-4 py-3 w-full rounded-lg" id="firstName" type="text" placeholder="First Name (optional)" required />
                                             </div>
@@ -96,7 +74,7 @@ const Checkout = () => {
                                             </div>
                                             <div className="col-span-full relative">
                                                 <input className="border-line pl-4 pr-12 py-3 w-full rounded-lg" id="address" type="text" placeholder="Address" required />
-                                                <Icon.MagnifyingGlass className="text-xl absolute top-1/2 -translate-y-1/2 right-5" />
+
                                             </div>
                                             <div className="">
                                                 <input className="border-line px-4 py-3 w-full rounded-lg" id="apartment" type="text" placeholder="Apartment, suite,etc.(optional)" required />
@@ -104,21 +82,12 @@ const Checkout = () => {
                                             <div className="">
                                                 <input className="border-line px-4 py-3 w-full rounded-lg" id="city" type="text" placeholder="City" required />
                                             </div>
-                                            <div className="select-block">
-                                                <select className="border border-line px-4 py-3 w-full rounded-lg" id="state" name="state">
-                                                    <option value="default">State</option>
-                                                    <option value="Nevada">Nevada</option>
-                                                    <option value="California">California</option>
-                                                    <option value="Los Angeles">Los Angeles</option>
-                                                </select>
-                                                <Icon.CaretDown className="arrow-down" />
-                                            </div>
+
                                             <div className="">
                                                 <input className="border-line px-4 py-3 w-full rounded-lg" id="zipcode" type="text" placeholder="Zip Code" required />
                                             </div>
                                         </div>
-                                        <h4 className="heading4 md:mt-10 mt-6">Shipping method</h4>
-                                        <div className="body1 text-secondary2 py-6 px-5 border border-line rounded-lg bg-surface mt-5">Enter your shipping address to view available shipping methods</div>
+
                                         <div className="payment-block md:mt-10 mt-6">
                                             <h4 className="heading4">Payment</h4>
                                             <p className="body1 text-secondary2 mt-3">All transactions are secure and encrypted.</p>
@@ -143,13 +112,7 @@ const Checkout = () => {
                                                         <div className="col-span-full relative">
                                                             <input className="border-line px-4 py-3 w-full rounded-lg" id="cardName" type="text" placeholder="Name On Card" required />
                                                         </div>
-                                                        <div className="col-span-full flex items-center">
-                                                            <div className="block-input">
-                                                                <input type="checkbox" name="useAddress" id="useAddress" />
-                                                                <Icon.CheckSquare weight='fill' className="icon-checkbox text-2xl" />
-                                                            </div>
-                                                            <label htmlFor="useAddress" className="text-title pl-2 cursor-pointer">Use shipping address as billing address</label>
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>

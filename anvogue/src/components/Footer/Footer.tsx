@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 
+
 const Footer = () => {
     return (
         <>
@@ -12,7 +13,7 @@ const Footer = () => {
                         <div className="content-footer py-[60px] flex justify-between flex-wrap gap-y-8">
                             <div className="company-infor basis-1/4 max-lg:basis-full pr-7">
                                 <Link href={'/'} className="logo">
-                                    <div className="heading4">Anvogue</div>
+                                    <div className="heading4">Stylora</div>
                                 </Link>
                                 <div className='flex gap-3 mt-3'>
                                     <div className="flex flex-col ">
@@ -21,7 +22,7 @@ const Footer = () => {
                                         <span className="text-button mt-3">Addresss:</span>
                                     </div>
                                     <div className="flex flex-col ">
-                                        <span className=''>hi.avitex@gmail.com</span>
+                                        <span className=''>hi.Stylora@gmail.com</span>
                                         <span className='mt-3'>1-333-345-6868</span>
                                         <span className='mt-3 pt-px'>549 Oak St. Crystal Lake,<br></br> IL 60014</span>
                                     </div>
@@ -41,6 +42,8 @@ const Footer = () => {
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/shipping'}>Shipping Policy</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/privacy'}>Privacy Policy</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/Return'}>Return & Refund</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/add'}>Return & Refund</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/admin'}>admin dashboard</Link>
                                     </div>
                                 </div>
                                 <div className="newsletter basis-1/3 pl-7 max-md:basis-full max-md:pl-0">

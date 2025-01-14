@@ -48,49 +48,96 @@ const Checkout = () => {
                     <div className="left flex lg:justify-end w-full">
                         <div className="lg:max-w-[716px] flex-shrink-0 w-full lg:pt-20 pt-12 lg:pr-[70px] pl-[16px] max-lg:pr-[16px]">
                             {/* Form content */}
-                            <form>
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault(); // Prevent form submission
+                                    alert("Order placed successfully"); // Show alert
+
+                                    // Clear all input fields
+                                    const inputs = document.querySelectorAll("input");
+                                    inputs.forEach((input) => (input.value = ""));
+                                    window.location.href = "/";
+                                }}
+                            >
                                 <div className="login flex justify-between gap-4">
                                     <h4 className="heading4">Contact</h4>
-                                    <Link href={"/login"} className="text-button underline">Login here</Link>
+                                    <Link href={"/login"} className="text-button underline">
+                                        Login here
+                                    </Link>
                                 </div>
                                 <div>
-                                    <input type="text" className="border-line mt-5 px-4 py-3 w-full rounded-lg" placeholder="Email or mobile phone number" required />
-                                    <div className="flex items-center mt-5">
-
-
-                                    </div>
+                                    <input
+                                        type="text"
+                                        className="border-line mt-5 px-4 py-3 w-full rounded-lg"
+                                        placeholder="Email or mobile phone number"
+                                        required
+                                    />
+                                    <div className="flex items-center mt-5"></div>
                                 </div>
                                 <div className="information md:mt-10 mt-6">
                                     <div className="heading5">Delivery</div>
-
                                     <div className="form-checkout mt-5">
                                         <div className="grid sm:grid-cols-2 gap-4 gap-y-5 flex-wrap">
-
-                                            <div className="">
-                                                <input className="border-line px-4 py-3 w-full rounded-lg" id="firstName" type="text" placeholder="First Name (optional)" required />
+                                            <div>
+                                                <input
+                                                    className="border-line px-4 py-3 w-full rounded-lg"
+                                                    id="firstName"
+                                                    type="text"
+                                                    placeholder="First Name (optional)"
+                                                    required
+                                                />
                                             </div>
-                                            <div className="">
-                                                <input className="border-line px-4 py-3 w-full rounded-lg" id="lastName" type="text" placeholder="Last Name" required />
+                                            <div>
+                                                <input
+                                                    className="border-line px-4 py-3 w-full rounded-lg"
+                                                    id="lastName"
+                                                    type="text"
+                                                    placeholder="Last Name"
+                                                    required
+                                                />
                                             </div>
                                             <div className="col-span-full relative">
-                                                <input className="border-line pl-4 pr-12 py-3 w-full rounded-lg" id="address" type="text" placeholder="Address" required />
-
+                                                <input
+                                                    className="border-line pl-4 pr-12 py-3 w-full rounded-lg"
+                                                    id="address"
+                                                    type="text"
+                                                    placeholder="Address"
+                                                    required
+                                                />
                                             </div>
-                                            <div className="">
-                                                <input className="border-line px-4 py-3 w-full rounded-lg" id="apartment" type="text" placeholder="Apartment, suite,etc.(optional)" required />
+                                            <div>
+                                                <input
+                                                    className="border-line px-4 py-3 w-full rounded-lg"
+                                                    id="apartment"
+                                                    type="text"
+                                                    placeholder="Apartment, suite,etc.(optional)"
+                                                    required
+                                                />
                                             </div>
-                                            <div className="">
-                                                <input className="border-line px-4 py-3 w-full rounded-lg" id="city" type="text" placeholder="City" required />
+                                            <div>
+                                                <input
+                                                    className="border-line px-4 py-3 w-full rounded-lg"
+                                                    id="city"
+                                                    type="text"
+                                                    placeholder="City"
+                                                    required
+                                                />
                                             </div>
-
-                                            <div className="">
-                                                <input className="border-line px-4 py-3 w-full rounded-lg" id="zipcode" type="text" placeholder="Zip Code" required />
+                                            <div>
+                                                <input
+                                                    className="border-line px-4 py-3 w-full rounded-lg"
+                                                    id="zipcode"
+                                                    type="text"
+                                                    placeholder="Zip Code"
+                                                    required
+                                                />
                                             </div>
                                         </div>
-
                                         <div className="payment-block md:mt-10 mt-6">
                                             <h4 className="heading4">Payment</h4>
-                                            <p className="body1 text-secondary2 mt-3">All transactions are secure and encrypted.</p>
+                                            <p className="body1 text-secondary2 mt-3">
+                                                All transactions are secure and encrypted.
+                                            </p>
                                             <div className="list-payment mt-5">
                                                 <div className="item">
                                                     <div className="type flex items-center justify-between bg-linear p-5 border border-black rounded-t-lg">
@@ -99,30 +146,60 @@ const Checkout = () => {
                                                     </div>
                                                     <div className="form_payment grid grid-cols-2 gap-4 gap-y-5 p-5 rounded-b-lg bg-surface">
                                                         <div className="col-span-full relative">
-                                                            <input className="border-line pl-4 pr-12 py-3 w-full rounded-lg" id="cardNumbers" type="text" placeholder="Card Numbers" required />
+                                                            <input
+                                                                className="border-line pl-4 pr-12 py-3 w-full rounded-lg"
+                                                                id="cardNumbers"
+                                                                type="text"
+                                                                placeholder="Card Numbers"
+                                                                required
+                                                            />
                                                             <Icon.LockSimple className="text-xl text-secondary absolute top-1/2 -translate-y-1/2 right-5" />
                                                         </div>
                                                         <div className="relative">
-                                                            <input className="border-line px-4 py-3 w-full rounded-lg" id="expirationDate" type="text" placeholder="Expiration date (MM /YY)" required />
+                                                            <input
+                                                                className="border-line px-4 py-3 w-full rounded-lg"
+                                                                id="expirationDate"
+                                                                type="text"
+                                                                placeholder="Expiration date (MM /YY)"
+                                                                required
+                                                            />
                                                         </div>
                                                         <div className="relative">
-                                                            <input className="border-line pl-4 pr-12 py-3 w-full rounded-lg" id="securityCode" type="text" placeholder="Security code" required />
+                                                            <input
+                                                                className="border-line pl-4 pr-12 py-3 w-full rounded-lg"
+                                                                id="securityCode"
+                                                                type="text"
+                                                                placeholder="Security code"
+                                                                required
+                                                            />
                                                             <Icon.Question className="text-xl text-secondary absolute top-1/2 -translate-y-1/2 right-5" />
                                                         </div>
                                                         <div className="col-span-full relative">
-                                                            <input className="border-line px-4 py-3 w-full rounded-lg" id="cardName" type="text" placeholder="Name On Card" required />
+                                                            <input
+                                                                className="border-line px-4 py-3 w-full rounded-lg"
+                                                                id="cardName"
+                                                                type="text"
+                                                                placeholder="Name On Card"
+                                                                required
+                                                            />
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="block-button md:mt-10 mt-6">
-                                            <button className="button-main w-full tracking-widest">Paynow</button>
+                                        <div className="block-button md:mt-10 mt-6 flex justify-center">
+                                            <button
+                                                type="submit"
+                                                className="bg-black text-white px-6 py-3 rounded-lg"
+                                            >
+                                                Pay Now
+                                            </button>
                                         </div>
+
                                     </div>
                                 </div>
-                            </form>
+                            </form>;
+
                         </div>
                     </div>
                     <div className="right justify-start flex-shrink-0 lg:w-[47%] bg-surface lg:py-20 py-12">

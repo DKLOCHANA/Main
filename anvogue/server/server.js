@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const { createServer } = require('http'); // For WebSocket integration
 const { Server } = require('socket.io'); // Socket.io for WebSocket communication
-
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();  // Add this line at the top
 const app = express();
 const httpServer = createServer(app); // Create an HTTP server for WebSocket support
 const io = new Server(httpServer, {
@@ -193,8 +195,46 @@ io.on('connection', (socket) => {
 });
 
 // Endpoint
+// User Schema
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+});
 
+const User = mongoose.model("user", userSchema);
 
+// Signup Endpoint
+app.post("/api/register", async (req, res) => {
+  try {
+      const { username, email, password } = req.body;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const user = new User({ username, email, password: hashedPassword });
+      await user.save();
+      res.status(201).json({ message: "User registered successfully!" });
+  } catch (err) {
+      res.status(400).json({ error: "User registration failed", details: err });
+  }
+});
+
+// Login Endpoint
+app.post("/api/login", async (req, res) => {
+  try {
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
+      if (!user) return res.status(400).json({ error: "User not found" });
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) return res.status(400).json({ error: "Invalid credentials" });
+
+      // Wrap the secret key in quotes
+      const token = jwt.sign({ id: user._id }, "sdfdfdhhFSDFDFSFKJDFKJDSFJKLSVNLSDKVJKLSDfsdf", { expiresIn: "1h" });
+      res.status(200).json({ message: "Login successful", token });
+  } catch (err) {
+      console.log(err);  // Log the error details for debugging
+      res.status(500).json({ error: "Login failed", details: err.message });
+  }
+});
 
 // Start Server
 const PORT = 5000;

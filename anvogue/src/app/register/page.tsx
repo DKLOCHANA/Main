@@ -1,69 +1,76 @@
-'use client'
-import React, { useState } from 'react'
-import Link from 'next/link'
+'use client';
+import React, { useState } from "react";
+import axios from "axios";
+import MenuOne from "@/components/Header/Menu/MenuOne";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Footer from "@/components/Footer/Footer";
 
-import MenuOne from '@/components/Header/Menu/MenuOne'
-import Breadcrumb from '@/components/Breadcrumb/Breadcrumb'
-import Footer from '@/components/Footer/Footer'
-import * as Icon from "@phosphor-icons/react/dist/ssr";
+const RegisterPage: React.FC = () => {
+    const [formData, setFormData] = useState({
+        username: "",
+        email: "",
+        password: "",
+    });
 
-const Register = () => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:5000/api/register", formData);
+            alert(response.data.message);
+            setFormData({ username: "", email: "", password: "" });
+        } catch (err: any) {
+            alert(err.response.data.error || "Registration failed");
+        }
+    };
 
     return (
-        <>
+        <><div id="header" className='relative w-full'>
+            <MenuOne props="bg-transparent" />
+            <Breadcrumb heading='Welcome' subHeading='register' />
+        </div>
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+                <div className="p-6 bg-white rounded-lg shadow-lg w-full max-w-md">
+                    <h2 className="text-2xl font-semibold mb-6 text-center">Register</h2>
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            placeholder="Username"
+                            className="input-field border border-gray-300 rounded-lg w-full px-4 py-2 mb-4"
+                            required />
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="Email"
+                            className="input-field border border-gray-300 rounded-lg w-full px-4 py-2 mb-4"
+                            required />
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            placeholder="Password"
+                            className="input-field border border-gray-300 rounded-lg w-full px-4 py-2 mb-4"
+                            required />
+                        <button
+                            type="submit"
 
-            <div id="header" className='relative w-full'>
-                <MenuOne props="bg-transparent" />
-                <Breadcrumb heading='Create An Account' subHeading='Create An Account' />
-            </div>
-            <div className="register-block md:py-20 py-10">
-                <div className="container">
-                    <div className="content-main flex gap-y-8 max-md:flex-col">
-                        <div className="left md:w-1/2 w-full lg:pr-[60px] md:pr-[40px] md:border-r border-line">
-                            <div className="heading4">Register</div>
-                            <form className="md:mt-7 mt-4">
-                                <div className="email ">
-                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="email" placeholder="Username or email address *" required />
-                                </div>
-                                <div className="pass mt-5">
-                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="password" type="password" placeholder="Password *" required />
-                                </div>
-                                <div className="confirm-pass mt-5">
-                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="confirmPassword" type="password" placeholder="Confirm Password *" required />
-                                </div>
-                                <div className='flex items-center mt-5'>
-                                    <div className="block-input">
-                                        <input
-                                            type="checkbox"
-                                            name='remember'
-                                            id='remember'
-                                        />
-                                        <Icon.CheckSquare size={20} weight='fill' className='icon-checkbox' />
-                                    </div>
-                                    <label htmlFor='remember' className="pl-2 cursor-pointer text-secondary2">I agree to the
-                                        <Link href={'#!'} className='text-black hover:underline pl-1'>Terms of User</Link>
-                                    </label>
-                                </div>
-                                <div className="block-button md:mt-7 mt-4">
-                                    <button className="button-main">Register</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div className="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex items-center">
-                            <div className="text-content">
-                                <div className="heading4">Already have an account?</div>
-                                <div className="mt-2 text-secondary">Welcome back. Sign in to access your personalized experience, saved preferences, and more. We{String.raw`'re`} thrilled to have you with us again!</div>
-                                <div className="block-button md:mt-7 mt-4">
-                                    <Link href={'/login'} className="button-main">Login</Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        >
+                            Register
+                        </button>
+                    </form>
                 </div>
             </div>
-            <Footer />
-        </>
-    )
-}
+            <Footer /></>
+    );
+};
 
-export default Register
+export default RegisterPage;

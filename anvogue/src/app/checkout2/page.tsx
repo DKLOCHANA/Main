@@ -27,7 +27,7 @@ const Checkout = () => {
                     <div className="container mx-auto h-full">
                         <div className="header-main flex items-center justify-between h-full">
                             <Link href={'/'} className="flex items-center">
-                                <div className="heading4">Anvogue</div>
+                                <div className="heading4">Stylora</div>
                             </Link>
                             <button
                                 className="max-md:hidden cart-icon flex items-center relative h-fit cursor-pointer"

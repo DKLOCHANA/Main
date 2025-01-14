@@ -1,10 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-
-
 const { createServer } = require('http'); // For WebSocket integration
 const { Server } = require('socket.io'); // Socket.io for WebSocket communication
 
@@ -90,7 +86,7 @@ const Feedback = mongoose.model('Review', feedbackSchema);
 const Order = mongoose.model('Order', OrderSchema);
 // User Schema for Authentication
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
@@ -236,7 +232,7 @@ app.post("/api/login", async (req, res) => {
 app.get('/api/user', async (req, res) => {
   try {
     // Get the token from the request headers
-    const token = req.headers.authorization?.split(' ')[2]; // 'Bearer <token>'
+    const token = req.headers.authorization?.split(' ')[1]; // 'Bearer <token>'
     
     if (!token) {
       return res.status(403).json({ error: "Token is required" });

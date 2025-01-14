@@ -129,6 +129,11 @@ const MenuOne: React.FC<Props> = ({ props }) => {
                                                         Customer Feedbacks
                                                     </Link>
                                                 </li>
+                                                <li>
+                                                    <Link href="my-account" className={`link text-secondary duration-300 ${pathname === '/pages/faqs'}`}>
+                                                        my-account
+                                                    </Link>
+                                                </li>
                                             </ul>
                                         </div>
                                     </li>

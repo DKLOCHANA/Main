@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import MenuOne from "@/components/Header/Menu/MenuOne";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Footer from "@/components/Footer/Footer";
+import Link from "next/dist/client/link";
 
 const LoginPage: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const LoginPage: React.FC = () => {
 
     const router = useRouter(); // Use router for navigation
 
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -26,7 +28,12 @@ const LoginPage: React.FC = () => {
 
         try {
             const response = await axios.post("http://localhost:5000/api/login", formData);
-            localStorage.setItem("token", response.data.token); // Store the token in localStorage
+            const token = response.data.token;
+            localStorage.setItem("token", token); // Store the token in localStorage
+
+            const email = formData.email; // Store email in variable
+            localStorage.setItem('email', email); // Save email for later use
+
             alert(response.data.message);
             setFormData({ email: "", password: "" }); // Reset the form data
             router.push("/"); // Redirect to the homepage after successful login
@@ -41,10 +48,11 @@ const LoginPage: React.FC = () => {
         }
     };
 
+
     return (
         <>
             <MenuOne props="bg-transparent" />
-            <Breadcrumb heading='Welcome' subHeading='register' />
+            <Breadcrumb heading='Welcome' subHeading='login' />
             <div className="min-h-screen flex items-center justify-center bg-gray-100">
                 <div className="p-6 bg-white rounded-lg shadow-lg w-full max-w-md">
                     <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
@@ -68,10 +76,13 @@ const LoginPage: React.FC = () => {
                             required />
                         <button
                             type="submit"
-
+                            className="bg-black text-white px-6 py-3 rounded-lg"
                         >
                             Login
                         </button>
+                        <div className="text-secondary text-center mt-3 pb-4">Do not have an account?
+                            <Link href={'/register'} className='text-black pl-1 hover:underline'>Register</Link>
+                        </div>
                     </form>
                 </div>
             </div><Footer /></>

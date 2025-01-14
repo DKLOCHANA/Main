@@ -4,6 +4,7 @@ import axios from "axios";
 import MenuOne from "@/components/Header/Menu/MenuOne";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Footer from "@/components/Footer/Footer";
+import Link from "next/dist/client/link";
 
 const RegisterPage: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -62,10 +63,15 @@ const RegisterPage: React.FC = () => {
                             required />
                         <button
                             type="submit"
-
+                            className="bg-black text-white px-6 py-3 rounded-lg"
                         >
                             Register
                         </button>
+
+                        <div className="text-secondary text-center mt-3 pb-4">Already have an account?
+                            <Link href={'/login'} className='text-black pl-1 hover:underline'>Login</Link>
+                        </div>
+
                     </form>
                 </div>
             </div>

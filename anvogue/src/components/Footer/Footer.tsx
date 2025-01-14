@@ -42,8 +42,7 @@ const Footer = () => {
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/shipping'}>Shipping Policy</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/privacy'}>Privacy Policy</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/Return'}>Return & Refund</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/add'}>Return & Refund</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/admin'}>admin dashboard</Link>
+
                                     </div>
                                 </div>
                                 <div className="newsletter basis-1/3 pl-7 max-md:basis-full max-md:pl-0">
